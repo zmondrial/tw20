@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: twitter-stream
+  labels:
+    name: twitter-stream
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: twitter-stream
+    spec:
+      containers:
+      - name: twitter-to-pubsub
+        image: gcr.io/google-samples/pubsub-bq-pipe:v5
+        env:
+        - name: PROCESSINGSCRIPT2
+          value: twitter-to-pubsub
+        # Change this to your pubsub topic
+        - name: PUBSUB_TOPIC2
+          value: projects/mondrian-158913/topics/twt_nl
+        # Change the following four settings to your twitter credentials
+        # information.
+        - name: CONSUMERKEY2
+          value: vCqbFUI3UeJ3Seq7epIh4O4ot
+        - name: CONSUMERSECRET2
+          value: tE24iwwoj2wnegHkTlNCvupleS2VaXEYjXiYzJBCDBfGdniSWt
+        - name: ACCESSTOKEN2
+          value: 1239306380747722755-Epb3qSsfNkChMGtbe8ouxwxOR5Y4Ry
+        - name: ACCESSTOKENSEC2
+          value: CUEtFk2vC667UsBxaigcah8Tn64ocEN3RRncCEfTcOlMs
+

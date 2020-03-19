@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bigquery-controller
+  labels:
+    name: bigquery-controller
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: bigquery-controller
+    spec:
+      containers:
+      - name: bigquery
+        image: gcr.io/google-samples/pubsub-bq-pipe:v5
+        env:
+        - name: PROCESSINGSCRIPT2
+          value: pubsub-to-bigquery
+        # Change this to your pubsub topic
+        - name: PUBSUB_TOPIC2
+          value: projects/mondrian-158913/topics/twt_nl
+        # Change this to your project ID.
+        - name: PROJECT_ID2
+          value: mondrian-158913
+        # Change the following two settings to your dataset and table.
+        - name: BQ_DATASET2
+          value: datastreams
+        - name: BQ_TABLE2
+          value: tweets
+
